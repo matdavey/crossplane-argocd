@@ -1,12 +1,14 @@
 # crossplane-argocd
 [![Crossplane plain ArgoCD](https://github.com/jonashackt/crossplane-argocd/workflows/crossplane-argocd/badge.svg)](https://github.com/jonashackt/crossplane-argocd/actions/workflows/crossplane-argocd.yml)
 [![Crossplane, ArgoCD & External Secrets Operator (+Doppler)](https://github.com/jonashackt/crossplane-argocd/workflows/crossplane-argocd-external-secrets/badge.svg)](https://github.com/jonashackt/crossplane-argocd/actions/workflows/crossplane-argocd-external-secrets.yml)
-![crossplane-version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fcrossplane%2FChart.yaml&query=%24.dependencies%5B%3A1%5D.version&label=crossplane&color=blue)
+![crossplane-version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fcrossplane%2FChart.yaml&query=%24.dependencies%5B%3A1%5D.version&label=crossplane&color=rgb(024%2C%2061%2C%2084))
 ![argocd-version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fargocd%2Finstall%2Fkustomization.yaml&query=%24.resources%5B%3A1%5D&label=argocd&color=rgb(236%2C%20110%2C%2076))
 ![provider-aws-ec2](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fupbound%2Fprovider-aws%2Fprovider%2Fupbound-provider-aws-ec2.yaml&query=%24.spec.package&label=provider-aws-ec2&color=rgb(109%2C%20100%2C%20245))
 ![provider-aws-eks](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fupbound%2Fprovider-aws%2Fprovider%2Fupbound-provider-aws-eks.yaml&query=%24.spec.package&label=provider-aws-eks&color=rgb(109%2C%20100%2C%20245))
 ![provider-aws-iam](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fupbound%2Fprovider-aws%2Fprovider%2Fupbound-provider-aws-iam.yaml&query=%24.spec.package&label=provider-aws-iam&color=rgb(109%2C%20100%2C%20245))
 ![provider-aws-s3](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fupbound%2Fprovider-aws%2Fprovider%2Fupbound-provider-aws-s3.yaml&query=%24.spec.package&label=provider-aws-s3&color=rgb(109%2C%20100%2C%20245))
+![provider-argocd](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fcrossplane-contrib%2Fprovider-argocd%2Fprovider%2Fprovider-argocd.yaml&query=%24.spec.package&label=provider-argocd&color=rgb(236%2C%20110%2C%2076))
+![external-secrets-operator-version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjonashackt%2Fcrossplane-argocd%2Fmain%2Fexternal-secrets%2Finstall%2FChart.yaml&query=%24.dependencies%5B%3A1%5D.version&label=external-secrets-operator&color=rgb(064%2C%2081%2C%20181))
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/jonashackt/crossplane-argocd/blob/master/LICENSE)
 [![renovateenabled](https://img.shields.io/badge/renovate-enabled-yellow)](https://renovatebot.com)
 
@@ -940,7 +942,7 @@ Don't forget so click on `save`.
 
 ### Create Service Token in Doppler project environment
 
-[As stated in the External Secrets docs](https://external-secrets.io/latest/provider/doppler/), we need to create a Doppler Service Token in order to be albe to connect to Doppler later on.
+[As stated in the External Secrets docs](https://external-secrets.io/latest/provider/doppler/), we need to create a Doppler Service Token in order to be able to connect to Doppler later on.
 
 In Doppler Service Tokens are created on project level - inside a specific environment, where we already created our secrets. As I created my secrets in the `dev` environment, I create the Service Token also there. Simply head over to your Doppler project, select the environment you created your secrets in and click on `Access`. Here you should find a button called `+ Generate` to create a new Service Token. Click the button and create a Service Token with `read` access and no expiration and copy it somewhere locally.
 
