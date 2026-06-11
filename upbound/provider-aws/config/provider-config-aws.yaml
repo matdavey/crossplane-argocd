@@ -1,16 +1,17 @@
 apiVersion: aws.m.upbound.io/v1beta1
 kind: ClusterProviderConfig
 metadata:
-  name: default
+  name: aws-default
 spec:
   credentials:
     source: Secret
     secretRef:
       namespace: crossplane-system
-      name: aws-creds
-      key: creds
+      name: aws-credentials
+      key: credentials
   endpoint:
     hostnameImmutable: true
     url:
       type: Static
-      static: http://192.168.215.2:4566
+      static: http://localhost:4566
+
