@@ -1,4 +1,4 @@
-apiVersion: k8s.crossplane.jonashackt.io/v1
+apiVersion: k8s.crossplane.matdavey.io/v1
 kind: KubernetesCluster
 metadata:
   namespace: default

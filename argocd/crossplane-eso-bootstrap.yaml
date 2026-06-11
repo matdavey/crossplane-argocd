@@ -6,13 +6,13 @@ metadata:
   name: crossplane-eso-bootstrap
   namespace: argocd
   labels:
-    crossplane.jonashackt.io: bootstrap
+    crossplane.matdavey.io: bootstrap
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/jonashackt/crossplane-argocd
+    repoURL: https://github.com/matdavey/crossplane-argocd
     targetRevision: HEAD
     path: argocd/crossplane-eso-bootstrap
   destination:
@@ -20,12 +20,12 @@ spec:
     namespace: crossplane-system
   syncPolicy:
     automated:
-      prune: true    
+      prune: true
     syncOptions:
     - CreateNamespace=true
     retry:
       limit: 1
       backoff:
-        duration: 5s 
-        factor: 2 
+        duration: 5s
+        factor: 2
         maxDuration: 1m
