@@ -8,7 +8,7 @@ spec:
     secretRef:
       namespace: crossplane-system
       name: aws-creds
-      key: creds
+      key: default
   endpoint:
     hostnameImmutable: true
     url:
