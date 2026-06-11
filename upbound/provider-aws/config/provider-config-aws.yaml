@@ -21,7 +21,7 @@ spec:
     secretRef:
       namespace: crossplane-system
       name: localstack-aws-secret
-      key: creds:
+      key: creds
   endpoint:
     hostnameImmutable: true
     url:
