@@ -9,3 +9,8 @@ spec:
       namespace: crossplane-system
       name: aws-creds
       key: creds
+  endpoint:
+    hostnameImmutable: true
+    url:
+      type: Static
+      static: http://localhost:4566
