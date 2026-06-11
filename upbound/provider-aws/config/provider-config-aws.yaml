@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/hook-delete-policy: HookFailed
 type: Opaque
 data:
-  creds: W2RlZmF1bHRdCmF3c19hY2Nlc3Nfa2V5X2lkID0gdGVzdAphd3Nfc2VjcmV0X2FjY2Vzc19rZXkgPSB0ZXN0Cg==
+  creds: W2RlZmF1bHRdCmF3c19hY2Nlc3Nfa2V5X2lkID0gCmF3c19zZWNyZXRfYWNjZXNzX2tleSA9IA==
 ---
 apiVersion: aws.m.upbound.io/v1beta1
 kind: ClusterProviderConfig
