@@ -13,4 +13,4 @@ spec:
     hostnameImmutable: true
     url:
       type: Static
-      static: http://localhost:4566
+      static: http://host.docker.internal:4566
