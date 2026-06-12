@@ -2,7 +2,7 @@ apiVersion: s3.aws.m.upbound.io/v1beta1
 kind: Bucket
 metadata:
   namespace: default
-  name: crossplane-argocd-simple-bucket
+  name: matdavey-crossplane-argocd-simple-bucket-testing-bucket
 spec:
   forProvider:
     region: us-east-1
