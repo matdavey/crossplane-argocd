@@ -1,7 +1,7 @@
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: upbound-provider-aws-ec2
+  name: upbound-provider-aws-sqs
 spec:
   package: xpkg.upbound.io/upbound/provider-aws-sqs:v2.5.3
   packagePullPolicy: IfNotPresent # Only download the package if it isn’t in the cache.
