@@ -1,0 +1,8 @@
+apiVersion: ziggiz.io/v1alpha1
+kind: BucketClaim
+metadata:
+  name: matdavey_golden_bucket
+  namespace: default
+spec:
+  parameters:
+    region: us-east-1

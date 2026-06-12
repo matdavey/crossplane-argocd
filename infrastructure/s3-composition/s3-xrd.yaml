@@ -1,0 +1,31 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xbuckets.ziggiz.io
+spec:
+  group: ziggiz.io
+  names:
+    kind: XBucket
+    plural: xbuckets
+  claimNames:
+    kind: BucketClaim
+    plural: bucketclaims
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                parameters:
+                  type: object
+                  properties:
+                    region:
+                      type: string
+                      description: "AWS Region for the bucket"
+                  required:
+                    - region
