@@ -17,7 +17,7 @@ spec:
       resources:
       - name: s3-bucket
         base:
-          apiVersion: s3.aws.upbound.io/v1beta1
+          apiVersion: s3.aws.m.upbound.io/v1beta1
           kind: Bucket
           spec:
             forProvider:
@@ -25,7 +25,7 @@ spec:
               objectLockEnabled: false
       - name: public-access-block
         base:
-          apiVersion: s3.aws.upbound.io/v1beta1
+          apiVersion: s3.aws.m.upbound.io/v1beta1
           kind: BucketPublicAccessBlock
           spec:
             forProvider:
