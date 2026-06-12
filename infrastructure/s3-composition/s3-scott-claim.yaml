@@ -1,0 +1,10 @@
+apiVersion: ziggiz.io/v1alpha1
+kind: BucketClaim
+metadata:
+  name: scott-golden-bucket-award
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  namespace: default
+spec:
+  parameters:
+    region: us-east-1
