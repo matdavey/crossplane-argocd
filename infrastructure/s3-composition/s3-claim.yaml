@@ -1,7 +1,7 @@
 apiVersion: ziggiz.io/v1alpha1
 kind: BucketClaim
 metadata:
-  name: matdavey_golden_bucket
+  name: matdavey-golden-bucket-award
   namespace: default
 spec:
   parameters:
