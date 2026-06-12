@@ -1,11 +1,13 @@
 apiVersion: ziggiz.io/v1alpha1
 kind: BucketWithQueueClaim
 metadata:
-  name: matdavey-bucket-with-queue
+  name: matdaveys-bucket-with-queue
   namespace: default
   annotations:
     argocd.argoproj.io/sync-wave: "3"
 spec:
+  resourceRef:
+    name: matdaveys-bucket-with-queue
   parameters:
     region: us-east-1
     # Override the default events list if needed, e.g:
