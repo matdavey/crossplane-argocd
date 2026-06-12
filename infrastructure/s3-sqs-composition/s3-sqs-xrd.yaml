@@ -1,0 +1,44 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xbucketwithqueues.ziggiz.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  group: ziggiz.io
+  names:
+    kind: XBucketWithQueue
+    plural: xbucketwithqueues
+  claimNames:
+    kind: BucketWithQueueClaim
+    plural: bucketwithqueueclaims
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                parameters:
+                  type: object
+                  properties:
+                    region:
+                      type: string
+                      description: "AWS region to create the bucket and queue in"
+                    events:
+                      type: array
+                      description: "S3 event types that trigger the queue notification e.g. s3:ObjectCreated:*"
+                      items:
+                        type: string
+                  required:
+                    - region
+            status:
+              type: object
+              properties:
+                queueArn:
+                  type: string
+                  description: "ARN of the created SQS queue, populated once the queue is ready"

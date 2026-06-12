@@ -1,0 +1,119 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xbucketwithqueues.ziggiz.io.aws
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  compositeTypeRef:
+    apiVersion: ziggiz.io/v1alpha1
+    kind: XBucketWithQueue
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: crossplane-contrib-function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+
+      - name: sqs-queue
+        base:
+          apiVersion: sqs.aws.upbound.io/v1beta1
+          kind: Queue
+          spec:
+            forProvider:
+              # Allow S3 to publish to this queue from any bucket in the account.
+              # Tighten the aws:SourceArn condition to the specific bucket ARN in production.
+              policy: |
+                {
+                  "Version": "2012-10-17",
+                  "Statement": [{
+                    "Effect": "Allow",
+                    "Principal": { "Service": "s3.amazonaws.com" },
+                    "Action": "SQS:SendMessage",
+                    "Resource": "*",
+                    "Condition": {
+                      "ArnLike": { "aws:SourceArn": "arn:aws:s3:::*" }
+                    }
+                  }]
+                }
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: metadata.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.region
+          toFieldPath: spec.forProvider.region
+        # Write the queue ARN back to the composite so BucketNotification can reference it
+        - type: ToCompositeFieldPath
+          fromFieldPath: status.atProvider.arn
+          toFieldPath: status.queueArn
+          policy:
+            fromFieldPath: Optional
+
+      - name: s3-bucket
+        base:
+          apiVersion: s3.aws.upbound.io/v1beta1
+          kind: Bucket
+          spec:
+            forProvider:
+              forceDestroy: true
+              objectLockEnabled: false
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: metadata.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.region
+          toFieldPath: spec.forProvider.region
+
+      - name: bucket-notification
+        base:
+          apiVersion: s3.aws.upbound.io/v1beta1
+          kind: BucketNotification
+          spec:
+            forProvider:
+              queue:
+              - id: sqs-notification
+                events:
+                - "s3:ObjectCreated:*"
+                queueArn: ""
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: spec.forProvider.bucketRef.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.region
+          toFieldPath: spec.forProvider.region
+        # Override default events if provided in the claim
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.events
+          toFieldPath: spec.forProvider.queue[0].events
+          policy:
+            fromFieldPath: Optional
+        # Populated once the queue is ready and its ARN has been written to composite status
+        - type: FromCompositeFieldPath
+          fromFieldPath: status.queueArn
+          toFieldPath: spec.forProvider.queue[0].queueArn
+          policy:
+            fromFieldPath: Required
+
+      - name: public-access-block
+        base:
+          apiVersion: s3.aws.upbound.io/v1beta1
+          kind: BucketPublicAccessBlock
+          spec:
+            forProvider:
+              blockPublicAcls: true
+              blockPublicPolicy: true
+              ignorePublicAcls: true
+              restrictPublicBuckets: true
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: spec.forProvider.bucketRef.name
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.parameters.region
+          toFieldPath: spec.forProvider.region
